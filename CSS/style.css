@@ -4,7 +4,7 @@ body, html {
     margin: 0;
     padding: 0;
     overflow: hidden; 
-    font-family:"Pretendard Variable", Pretendard, -apple-system, sans-serif;
+    font-family: "Pretendard Variable", Pretendard, -apple-system, sans-serif;
 }
 
 /* 스크롤 컨테이너 */
@@ -34,13 +34,15 @@ body, html {
 /* 섹션별 배경색 */
 .consulting { 
     background-color: #fafaf8; 
-    color: #395d3b; }
+    color: #395d3b; 
+}
 .seminar { 
     background-color: #426A44; 
 }
 .creating { 
     background-color: #fafaf8; 
-    color: #395d3b;}
+    color: #395d3b;
+}
 
 /* 푸터: 높이가 낮아도 자연스럽게 스냅되도록 설정 */
 .footer-section { 
@@ -140,18 +142,18 @@ body, html {
     50% { transform: rotate(-3deg); }
 }
 
-/* 2. 줄을 당길 때의 효과 (클래스로 제어) */
+/* 2. 줄을 당길 때의 효과 */
 .light-switch.pull {
     transform: translateY(40px); /* 아래로 툭 당겨짐 */
 }
 
-/* 로고 페이드인 (선택사항: 줄 당기기 전엔 안보이게) */
+/* 로고 페이드인 */
 .intro-logo, .intro-content p {
     opacity: 0;
     transition: opacity 0.5s ease;
     color: #395d3b;
     background-color: #fafaf8;
-    font-family:"Pretendard Variable", Pretendard, -apple-system, sans-serif;
+    font-family: "Pretendard Variable", Pretendard, -apple-system, sans-serif;
 }
 
 /* 조명이 켜지면 보임 */
@@ -163,8 +165,8 @@ body, html {
 /* 로고 감싸는 박스 */
 .intro-logo-wrapper {
     position: relative;
-    width: 300px; /* 로고 너비에 맞춰 조절 */
-    height: 100px; /* 로고 높이에 맞춰 조절 */
+    width: 300px;
+    height: 100px;
     margin-bottom: 20px;
 }
 
@@ -174,31 +176,29 @@ body, html {
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 100%; /* 부모 너비에 맞춤 */
+    width: 100%;
     height: auto;
-    transition: opacity 0.3s ease; /* 전환 속도 */
+    transition: opacity 0.3s ease;
 }
 
-/* 처음 상태: OFF 로고는 보이고, ON 로고는 숨김 */
+/* 처음 상태: OFF 로고 보임 */
 .logo-img.off { opacity: 1; }
-.logo-img.on { opacity: 0; }
 
-/* 조명 켜진 후(light-on): OFF 로고 숨기고, ON 로고 보임 */
+/* 조명 켜진 후(light-on): OFF 로고 숨김 */
 #intro.light-on .logo-img.off { opacity: 0; }
-#intro.light-on .logo-img.on { opacity: 1; }
 
 /* 서브텍스트 애니메이션 */
 .intro-subtext {
     opacity: 0;
     transform: translateY(10px);
     transition: all 0.6s ease;
-    color: #fff; /* 초기 색상 */
+    color: #fff;
 }
 
 #intro.light-on .intro-subtext {
     opacity: 1;
     transform: translateY(0);
-    color: #000; /* 조명 켜지면 검정색으로 (배경이 흰색이 될 경우) */
+    color: #000;
 }
 
 /* 로고 컨테이너 */
@@ -207,12 +207,11 @@ body, html {
     align-items: center;
 }
 
-/* ★ 중요: 이미지 크기 제어 ★ */
 .nav-logo-img {
-    height: 80px;  /* 내비게이션 바 높이에 맞춰 적절히 조절 (보통 30~50px) */
-    width: auto;   /* 가로 비율은 원본 유지 */
+    height: 80px;
+    width: auto;
     display: block;
-    transition: filter 0.3s ease; /* 다크모드 전환 대비 */
+    transition: filter 0.3s ease;
 }
 
 /* 내비게이션 */
@@ -227,7 +226,7 @@ body, html {
     align-items: center;
     z-index: 500;
     box-sizing: border-box;
-    transition: color 0.5s ease; /* 색상 변경 애니메이션 */
+    transition: color 0.5s ease;
 }
 
 /* 테마에 따른 메뉴 색상 클래스 */
@@ -239,6 +238,8 @@ body, html {
     list-style: none;
     display: flex;
     gap: 40px;
+    margin: 0;
+    padding: 0;
 }
 
 .nav-menu li a {
@@ -271,9 +272,9 @@ body, html {
 
 /* 서브 메뉴 스타일 */
 .dropdown-content {
-    display: none; /* 기본적으로 숨김 */
+    display: none;
     position: absolute;
-    top: 100%; /* 부모 메뉴 바로 아래 위치 */
+    top: 100%;
     left: 50%;
     transform: translateX(-50%);
     background-color: #426A44;
@@ -286,12 +287,10 @@ body, html {
     border-radius: 4px;
 }
 
-/* 다크모드일 때 서브 메뉴 배경색 변경 */
 .navbar.dark-mode .dropdown-content {
     background-color: rgba(26, 26, 26, 0.95);
 }
 
-/* 서브 메뉴 내 링크 스타일 */
 .dropdown-content li a {
     color: #fafaf8 !important;
     padding: 10px 20px;
@@ -301,12 +300,10 @@ body, html {
     transition: background 0.3s;
 }
 
-/* 다크모드일 때 서브 메뉴 텍스트색 */
 .navbar.dark-mode .dropdown-content li a {
     color: #ffffff !important;
 }
 
-/* 서브 메뉴 호버 효과 */
 .dropdown-content li a:hover {
     background-color: #fdf8d8;
     color: #395d3b !important;
@@ -315,13 +312,11 @@ body, html {
     background-color: #333;
 }
 
-/* 부모 메뉴에 마우스 올리면 서브 메뉴 노출 */
 .dropdown:hover .dropdown-content {
     display: block;
     animation: fadeIn 0.3s ease;
 }
 
-/* 간단한 페이드인 애니메이션 */
 @keyframes fadeIn {
     from { opacity: 0; transform: translate(-50%, 10px); }
     to { opacity: 1; transform: translate(-50%, 0); }
