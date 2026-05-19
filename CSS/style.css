@@ -1,0 +1,328 @@
+@import url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Bold.woff2');
+
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; 
+    font-family:"Pretendard Variable", Pretendard, -apple-system, sans-serif;
+}
+
+/* 스크롤 컨테이너 */
+.scroll-container {
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none; /* IE/Edge 스크롤바 숨김 */
+    scrollbar-width: none; /* Firefox 스크롤바 숨김 */
+    font-style: normal;
+    color: #fafaf8;
+}
+.scroll-container::-webkit-scrollbar { display: none; } /* Chrome/Safari 스크롤바 숨김 */
+
+.panel {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 0 10%;
+    scroll-snap-align: start;
+    box-sizing: border-box;
+    position: relative;
+}
+
+/* 섹션별 배경색 */
+.consulting { 
+    background-color: #fafaf8; 
+    color: #395d3b; }
+.seminar { 
+    background-color: #426A44; 
+}
+.creating { 
+    background-color: #fafaf8; 
+    color: #395d3b;}
+
+/* 푸터: 높이가 낮아도 자연스럽게 스냅되도록 설정 */
+.footer-section { 
+    background-color: #395d3b; 
+    color: #fafaf8; 
+    padding: 90px;
+    height: 20vh; /* 푸터 높이 조정 */
+    scroll-snap-align: end; /* 푸터는 끝 지점에 맞춤 */
+}
+
+/* 텍스트 애니메이션 기본 상태 */
+.content {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Intersection Observer 활성화 시 */
+.content.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.content h2 {
+    font-size: 6vw;
+    font-weight: 900;
+    margin: 0;
+    color: inherit;
+}
+
+.num {
+    font-size: 1.2rem;
+    font-family: serif;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+/* 인트로 */
+#intro {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #426A44;
+    color: #fafaf8;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 1.2s cubic-bezier(0.8, 0, 0.2, 1);
+}
+
+.intro-content {
+    position: relative;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 전등 줄 스타일 */
+.light-switch {
+    position: absolute;
+    top: -10px; /* 천장에서 내려오는 느낌 */
+    right: 15%; /* 우측 상단에 배치 */
+    cursor: pointer;
+    z-index: 1001;
+    transition: transform 0.3s ease;
+    transform-origin: top center;
+    animation: swing 3s ease-in-out infinite; /* 기본 흔들림 */
+}
+
+/* 줄 부분 */
+.wire {
+    width: 2px;
+    height: 250px;
+    background: #eee;
+    margin: 0 auto;
+}
+
+/* 손잡이 부분 */
+.handle {
+    width: 12px;
+    height: 30px;
+    background: #fff;
+    border-radius: 5px;
+    margin: 0 auto;
+}
+
+/* 1. 달랑거리는 애니메이션 */
+@keyframes swing {
+    0%, 100% { transform: rotate(3deg); }
+    50% { transform: rotate(-3deg); }
+}
+
+/* 2. 줄을 당길 때의 효과 (클래스로 제어) */
+.light-switch.pull {
+    transform: translateY(40px); /* 아래로 툭 당겨짐 */
+}
+
+/* 로고 페이드인 (선택사항: 줄 당기기 전엔 안보이게) */
+.intro-logo, .intro-content p {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    color: #395d3b;
+    background-color: #fafaf8;
+    font-family:"Pretendard Variable", Pretendard, -apple-system, sans-serif;
+}
+
+/* 조명이 켜지면 보임 */
+#intro.light-on .intro-logo, 
+#intro.light-on p {
+    opacity: 1;
+}
+
+/* 로고 감싸는 박스 */
+.intro-logo-wrapper {
+    position: relative;
+    width: 300px; /* 로고 너비에 맞춰 조절 */
+    height: 100px; /* 로고 높이에 맞춰 조절 */
+    margin-bottom: 20px;
+}
+
+/* 로고 이미지 공통 스타일 */
+.logo-img {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%; /* 부모 너비에 맞춤 */
+    height: auto;
+    transition: opacity 0.3s ease; /* 전환 속도 */
+}
+
+/* 처음 상태: OFF 로고는 보이고, ON 로고는 숨김 */
+.logo-img.off { opacity: 1; }
+.logo-img.on { opacity: 0; }
+
+/* 조명 켜진 후(light-on): OFF 로고 숨기고, ON 로고 보임 */
+#intro.light-on .logo-img.off { opacity: 0; }
+#intro.light-on .logo-img.on { opacity: 1; }
+
+/* 서브텍스트 애니메이션 */
+.intro-subtext {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.6s ease;
+    color: #fff; /* 초기 색상 */
+}
+
+#intro.light-on .intro-subtext {
+    opacity: 1;
+    transform: translateY(0);
+    color: #000; /* 조명 켜지면 검정색으로 (배경이 흰색이 될 경우) */
+}
+
+/* 로고 컨테이너 */
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+/* ★ 중요: 이미지 크기 제어 ★ */
+.nav-logo-img {
+    height: 80px;  /* 내비게이션 바 높이에 맞춰 적절히 조절 (보통 30~50px) */
+    width: auto;   /* 가로 비율은 원본 유지 */
+    display: block;
+    transition: filter 0.3s ease; /* 다크모드 전환 대비 */
+}
+
+/* 내비게이션 */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 500;
+    box-sizing: border-box;
+    transition: color 0.5s ease; /* 색상 변경 애니메이션 */
+}
+
+/* 테마에 따른 메뉴 색상 클래스 */
+.navbar.dark-mode { color: #ffffff; }
+.navbar.dark-mode .nav-menu li a { color: #ffffff; }
+.navbar.dark-mode .nav-menu li a::after { background-color: #ffffff; }
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+}
+
+.nav-menu li a {
+    text-decoration: none;
+    color: #395d3b;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    position: relative;
+    transition: color 0.5s ease;
+}
+
+.nav-menu li a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: #1a1a1a;
+    transition: width 0.3s ease, background-color 0.5s ease;
+}
+
+.nav-menu li a:hover::after { width: 100%; }
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* 서브 메뉴 스타일 */
+.dropdown-content {
+    display: none; /* 기본적으로 숨김 */
+    position: absolute;
+    top: 100%; /* 부모 메뉴 바로 아래 위치 */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #426A44;
+    min-width: 120px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.1);
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+    z-index: 1001;
+    border-radius: 4px;
+}
+
+/* 다크모드일 때 서브 메뉴 배경색 변경 */
+.navbar.dark-mode .dropdown-content {
+    background-color: rgba(26, 26, 26, 0.95);
+}
+
+/* 서브 메뉴 내 링크 스타일 */
+.dropdown-content li a {
+    color: #fafaf8 !important;
+    padding: 10px 20px;
+    display: block;
+    font-size: 0.8rem;
+    text-align: center;
+    transition: background 0.3s;
+}
+
+/* 다크모드일 때 서브 메뉴 텍스트색 */
+.navbar.dark-mode .dropdown-content li a {
+    color: #ffffff !important;
+}
+
+/* 서브 메뉴 호버 효과 */
+.dropdown-content li a:hover {
+    background-color: #fdf8d8;
+    color: #395d3b !important;
+}
+.navbar.dark-mode .dropdown-content li a:hover {
+    background-color: #333;
+}
+
+/* 부모 메뉴에 마우스 올리면 서브 메뉴 노출 */
+.dropdown:hover .dropdown-content {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+/* 간단한 페이드인 애니메이션 */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translate(-50%, 10px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
+}
