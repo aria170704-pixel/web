@@ -1,90 +1,77 @@
 window.addEventListener('load', () => {
-
     const intro = document.getElementById('intro');
-
+    const lightSwitch = document.getElementById('lightSwitch'); // 누락되었던 변수 선언 추가
     const container = document.querySelector('.scroll-container');
 
-
-
     // 1. 인트로 연출
+    if (lightSwitch && intro) {
+        lightSwitch.addEventListener('click', () => {
+            // 1. 줄 당기는 모션
+            lightSwitch.classList.add('pull');
+            
+            // 2. 조명 켜지는 효과 (살짝 딜레이)
+            setTimeout(() => {
+                intro.classList.add('light-on'); // 글자 나타남
+                intro.style.backgroundColor = "#fff"; // 배경이 밝아짐
+                intro.style.color = "#000";
+            }, 200);
 
-    lightSwitch.addEventListener('click', () => {
-        // 1. 줄 당기는 모션
-        lightSwitch.classList.add('pull');
-        
-        // 2. 조명 켜지는 효과 (살짝 딜레이)
-        setTimeout(() => {
-            intro.classList.add('light-on'); // 글자 나타남
-            intro.style.backgroundColor = "#fff"; // 배경이 갑자기 밝아지거나 그대로 검정색 유지 가능
-            intro.style.color = "#000";
-        }, 200);
-
-        // 3. 인트로 화면 올라가기
-        setTimeout(() => {
-            intro.style.transform = 'translateY(-100%)';
-        }, 800);
-    });
-
-    setTimeout(() => { lightSwitch.click(); }, 2000); 
-
-    // 2. 휠 이벤트로 섹션 전환 시 추가 애니메이션 (옵션)
-
-    // Intersection Observer를 쓰면 각 섹션에 도달했을 때 텍스트가 슥 올라오는 효과를 줄 수 있습니다.
-
-    const observer = new IntersectionObserver((entries) => {
-
-        entries.forEach(entry => {
-
-            if (entry.isIntersecting) {
-
-                entry.target.querySelector('.content')?.classList.add('visible');
-
-            }
-
+            // 3. 인트로 화면 올라가기
+            setTimeout(() => {
+                intro.style.transform = 'translateY(-100%)';
+            }, 800);
         });
 
+        // 페이지 로드 후 2초 뒤에 자동으로 스위치 클릭 실행
+        setTimeout(() => { 
+            lightSwitch.click(); 
+        }, 2000); 
+    }
+
+    // 2. Intersection Observer (스크롤 시 각 섹션 텍스트 오픈 애니메이션)
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.querySelector('.content')?.classList.add('visible');
+            }
+        });
     }, { threshold: 0.5 });
 
-
-
     document.querySelectorAll('.panel').forEach(panel => {
-
         observer.observe(panel);
-
-    });
-
-});
-
-
-
-// 3. 내비게이션 스무스 스크롤 (Container 방식)
-document.querySelectorAll('.nav-menu a').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        const targetElement = document.querySelector(targetId);
-        
-        if (targetElement) {
-            targetElement.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
     });
 });
 
-// 기존 JS 코드에 이 부분이 포함되어 있다면 그대로 두셔도 됩니다.
+// 3. 내비게이션 및 드롭다운 스무스 스크롤 통합 이벤트
 document.querySelectorAll('.nav-menu a, .dropdown-content a').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
-        // 드롭다운 부모 메뉴 클릭 시 페이지 이동을 막고 싶다면 아래 조건문 추가
-        if(this.classList.contains('dropbtn')) {
-            // e.preventDefault(); // 부모 메뉴 클릭 시 이동을 막으려면 주석 해제
+        const targetId = this.getAttribute('href');
+        
+        // 의미 없는 dummy 링크(#none)거나 '#'인 경우 이벤트 차단
+        if (targetId === '#none' || targetId === '#') {
+            e.preventDefault();
+            return;
         }
         
-        const targetId = this.getAttribute('href');
+        // 인트로 로고를 눌러 가장 위로 갈 때 scroll-container를 0 위치로 스크롤
+        if (targetId === '#intro') {
+            e.preventDefault();
+            const container = document.querySelector('.scroll-container');
+            if (container) {
+                container.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+            return;
+        }
+
+        // 해당 id를 가진 section 요소 찾기
         const targetElement = document.querySelector(targetId);
-        
         if (targetElement) {
+            e.preventDefault(); // 기본 링크 이동 기능 방지
+            
+            // CSS snap scroll 컨테이너 내부에서 부드럽게 타겟 섹션으로 이동
             targetElement.scrollIntoView({
                 behavior: 'smooth',
                 block: 'start'
@@ -92,4 +79,3 @@ document.querySelectorAll('.nav-menu a, .dropdown-content a').forEach(anchor => 
         }
     });
 });
-
