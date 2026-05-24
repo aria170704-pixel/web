@@ -110,13 +110,13 @@ body, html {
 /* 전등 줄 스타일 */
 .light-switch {
     position: absolute;
-    top: -10px; /* 천장에서 내려오는 느낌 */
-    right: 15%; /* 우측 상단에 배치 */
+    top: -10px; 
+    right: 15%; 
     cursor: pointer;
     z-index: 1001;
     transition: transform 0.3s ease;
     transform-origin: top center;
-    animation: swing 3s ease-in-out infinite; /* 기본 흔들림 */
+    animation: swing 3s ease-in-out infinite; 
 }
 
 /* 줄 부분 */
@@ -136,15 +136,15 @@ body, html {
     margin: 0 auto;
 }
 
-/* 1. 달랑거리는 애니메이션 */
+/* 달랑거리는 애니메이션 */
 @keyframes swing {
     0%, 100% { transform: rotate(3deg); }
     50% { transform: rotate(-3deg); }
 }
 
-/* 2. 줄을 당길 때의 효과 */
+/* 줄을 당길 때의 효과 */
 .light-switch.pull {
-    transform: translateY(40px); /* 아래로 툭 당겨짐 */
+    transform: translateY(40px); 
 }
 
 /* 로고 페이드인 */
@@ -181,10 +181,7 @@ body, html {
     transition: opacity 0.3s ease;
 }
 
-/* 처음 상태: OFF 로고 보임 */
 .logo-img.off { opacity: 1; }
-
-/* 조명 켜진 후(light-on): OFF 로고 숨김 */
 #intro.light-on .logo-img.off { opacity: 0; }
 
 /* 서브텍스트 애니메이션 */
@@ -229,7 +226,6 @@ body, html {
     transition: color 0.5s ease;
 }
 
-/* 테마에 따른 메뉴 색상 클래스 */
 .navbar.dark-mode { color: #ffffff; }
 .navbar.dark-mode .nav-menu li a { color: #ffffff; }
 .navbar.dark-mode .nav-menu li a::after { background-color: #ffffff; }
@@ -320,4 +316,396 @@ body, html {
 @keyframes fadeIn {
     from { opacity: 0; transform: translate(-50%, 10px); }
     to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* ----------------------------------------------------
+   ★ 상세 페이지 전용 레이아웃 스타일 ★
+---------------------------------------------------- */
+
+/* 기본 상태: 오른쪽 바깥에 완벽히 숨겨둠 */
+.sub-page-layout {
+    position: absolute;
+    top: 0;
+    left: 100%; 
+    width: 100%;
+    height: 100vh;
+    background-color: #fafaf8; 
+    color: #395d3b;
+    z-index: 10;
+    transition: left 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    box-sizing: border-box;
+}
+
+/* 세미나 섹션 전용 테마 */
+.seminar .sub-page-layout {
+    background-color: #426A44;
+    color: #fafaf8;
+}
+
+/* 오픈 시 화면 가득 활성화 */
+.panel.page-open .sub-page-layout {
+    left: 0; 
+}
+
+/* 본문 내부 정렬: 패딩 상단을 180px로 대폭 늘려 로고/메뉴 침범을 강제 차단 */
+.sub-page-inner {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 180px 10% 60px 10%; 
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* 글자 및 버튼 왼쪽 정렬 */
+}
+
+.sub-page-inner h1 {
+    font-size: 3.5rem;
+    font-weight: 900;
+    margin: 0 0 20px 0;
+}
+
+.sub-page-inner hr {
+    width: 100%;
+    border: none;
+    height: 1px;
+    background-color: currentColor;
+    margin: 0 0 40px 0;
+    opacity: 0.3;
+}
+
+.sub-page-inner p {
+    margin: 0 0 15px 0;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* [자세히 보기] 버튼 스타일 */
+.open-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 30px;
+    background: none;
+    border: 1px solid currentColor;
+    color: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.open-btn:hover {
+    background-color: currentColor;
+    color: #fff;
+}
+.seminar .open-btn:hover {
+    color: #426A44;
+}
+
+/* [돌아가기] 버튼 스타일: 본문 텍스트가 끝나는 아래쪽에 안전하게 배치 */
+.back-btn {
+    display: inline-block;
+    margin-top: 50px; /* 본문과의 확실한 거리 확보 */
+    padding: 12px 30px;
+    background: none;
+    border: 1px solid currentColor;
+    color: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.back-btn:hover {
+    background-color: #395d3b;
+    color: #fafaf8;
+}
+.seminar .back-btn:hover {
+    background-color: #fafaf8;
+    color: #426A44;
+}
+
+/* 서브창 열리면 메인 텍스트 숨기기 */
+.panel.page-open .content {
+    opacity: 0 !important;
+    transform: translateY(-30px);
+    transition: all 0.4s ease;
+}
+
+/* 스크롤 잠금용 클래스 */
+.scroll-lock {
+    overflow-y: hidden !important;
+}
+
+/* 1. 컨설팅 상세창 부모: 부모의 flex 속성을 무시하고 화면 전체를 강제로 덮도록 수정 */
+.sub-page-layout.bg-sprout {
+    position: absolute;
+    top: 0;
+    left: 100%; /* 기본 상태에서는 여전히 오른쪽에 숨어있음 */
+    width: 100vw; /* 화면 너비 100% 강제 고정 */
+    height: 100vh; /* 화면 높이 100% 강제 고정 */
+    background: none;
+    background-color: rgba(250, 250, 248, 0.85); /* 흰색 바탕에 85% 투명도로 뽀얗게 균일한 톤 유지 */
+    z-index: 100; /* 맨 위로 얹어지도록 우선순위 상향 */
+    transition: left 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* 오픈 시 화면 전체(0인 지점)로 정확히 덮음 */
+.panel.page-open .sub-page-layout.bg-sprout {
+    left: 0; 
+}
+
+/* 2. 가상 요소: 블러(blur) 제거하고 선명하게 사진 투명도 50% 적용 */
+.sub-page-layout.bg-sprout::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/img/bg2.jpg'); /* 새싹 이미지 경로 */
+    background-size: cover;
+    background-position: center;
+    opacity: 0.5; /* ❗️요청하신 사진 투명도 50% */
+    /* ❌ filter: blur(); 코드를 완벽히 제거하여 시안처럼 선명하게 나오도록 했습니다. */
+    z-index: -1;
+    filter: brightness(0.8);
+}
+
+
+/* 3. 본문 컨테이너: flex 속성이 깨지지 않도록 내부 정렬 패딩 유지 */
+.bg-sprout .sub-page-inner {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 180px 10% 60px 10%; 
+    color: #fafaf8; /* 글자색 어두운 초록색 유지 */
+    text-shadow: none;
+    
+    /* 뒤로가기 버튼을 바닥으로 밀기 위한 정렬 스펙 */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* 4. [뒤로가기] 버튼 위치 수정 */
+.bg-sprout .back-btn {
+    align-self: flex-start; /* 🟢 중앙 정렬을 풀고 본문 글씨처럼 왼쪽 시작점으로 정렬 */
+    
+    /* 💡 왼쪽으로 쪼끔 밀고 싶을 때 조정하는 값 */
+    margin-left: 0px;       /* 기본적으로 본문 시작선에 딱 맞춥니다. */
+    /* 만약 본문보다 살짝 더 왼쪽으로 밀거나 띄우고 싶다면 
+       margin-left: 10px; 이나 margin-left: -10px; 처럼 값을 주며 조절해보세요! */
+
+    margin-top: auto;       /* 본문 텍스트가 끝나면 무조건 바닥 쪽으로 밀어내기 */
+    margin-bottom: 60px;    /* 바닥에서 띄우는 여백 */
+    
+    /* 버튼 스타일 (기존 유지) */
+    padding: 12px 30px;
+    border: 1px solid #395d3b;
+    color: #395d3b;
+    background: transparent;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* [뒤로가기] 버튼 마우스 호버 효과 (기존 유지) */
+.bg-sprout .back-btn:hover {
+    background-color: #395d3b;
+    color: #fafaf8;
+}
+
+/* 세미나 대형 레이아웃 전체 화면 강제 고정 */
+.seminar-deck-wrapper {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 100vw;
+    height: 100vh;
+    background-color: #426A44; /* 세미나 브랜드 시그니처 컬러 */
+    z-index: 100;
+    transition: left 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* 자세히 보기 클릭 시 전체 화면으로 슬라이드 인 */
+.panel.page-open .seminar-deck-wrapper {
+    left: 0;
+}
+
+/* 휠 스크롤 스냅을 작동시킬 독자적인 스크롤 컨테이너 */
+.seminar-deck-container {
+    width: 100%;
+    height: 100vh;
+    overflow-y: scroll; /* 세로 스크롤 허용 */
+    scroll-snap-type: y mandatory; /* 컨설팅처럼 휠 돌릴 때 챡챡 걸리는 스냅 작동 */
+    -ms-overflow-style: none; /* 스크롤바 바 서식 숨김 */
+    scrollbar-width: none;
+}
+.seminar-deck-container::-webkit-scrollbar {
+    display: none; /* 크롬, 사파리 등 스크롤바 디스플레이 제거 */
+}
+
+/* 내부 슬라이드 개별 스펙 (화면 가득 채우기) */
+.seminar-slide {
+    width: 100%;
+    height: 100vh;
+    scroll-snap-align: start; /* 스냅 기준선 정렬 */
+    display: flex;
+    align-items: center;
+    padding: 0 10%;
+    box-sizing: border-box;
+    color: #fafaf8;
+}
+
+/* 각 슬라이드별 배경 톤다운 배정 (원하시는 색상이나 이미지로 커스텀 가능) */
+.seminar-slide.slide-01 { background-color: #426A44; }
+.seminar-slide.slide-02 { background-color: #395d3b; }
+.seminar-slide.slide-03 { background-color: #2e4a30; }
+.seminar-slide.slide-04 { background-color: #395d3b; }
+.seminar-slide.slide-05 { background-color: #426A44; }
+
+/* 슬라이드 내용 레이아웃 정렬 */
+.slide-inner {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* 컨설팅처럼 왼쪽 정렬 일치 */
+}
+
+.slide-inner h1 { font-size: 4rem; font-weight: 900; margin: 0 0 20px 0; }
+.slide-inner h2 { font-size: 3rem; font-weight: 700; margin: 0 0 15px 0; }
+.slide-inner hr { width: 100%; border: none; height: 1px; background: rgba(250,250,248,0.3); margin: 0 0 30px 0; }
+.slide-inner p { font-size: 1.2rem; line-height: 1.8; opacity: 0.9; margin: 0; }
+
+/* 5번째 슬라이드의 돌아가기 버튼 스타일 (왼쪽 정렬) */
+.seminar-slide .back-btn {
+    align-self: flex-start;
+    margin-top: 50px;
+    padding: 12px 30px;
+    border: 1px solid #fafaf8;
+    color: #fafaf8;
+    background: transparent;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.seminar-slide .back-btn:hover {
+    background-color: #fafaf8;
+    color: #426A44;
+}
+
+/* 크리에이팅 대형 레이아웃 고정 */
+.creating-sub-wrapper {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 100vw;
+    height: 100vh;
+    background-color: #fafaf8; /* 라이트톤 배경 유지 */
+    z-index: 100;
+    transition: left 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    overflow-y: auto;          /* 내용이 화면보다 길어지면 세로 스크롤을 자동으로 생성 */
+    scrollbar-width: none;
+}
+
+/* 오픈 시 화면 전체 덮음 */
+.panel.page-open .creating-sub-wrapper {
+    left: 0;
+}
+
+/* 상단 설명 문구 */
+.inquiry-desc {
+    margin-bottom: 40px !important;
+    font-size: 1.1rem;
+    color: #555;
+}
+
+/* 댓글창 폼 스타일 */
+.comment-form {
+    width: 100%;
+    max-width: 700px; /* 너무 퍼지지 않게 적당한 너비 고정 */
+    display: flex;
+    flex-direction: column;
+    gap: 25px; /* 입력 칸 사이의 간격 */
+}
+
+/* 입력 그룹 (라벨 + 인풋) */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.input-group label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #395d3b; /* 시그니처 딥그린 */
+}
+
+/* 인풋 및 텍스트에어리어 기본 디자인 통합 */
+.input-group input, 
+.input-group textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #395d3b;
+    background-color: rgba(250, 250, 248, 0.5);
+    color: #395d3b;
+    font-family: inherit;
+    font-size: 1rem;
+    box-sizing: border-box;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+/* 포커스 되었을 때 살짝 강조 */
+.input-group input:focus, 
+.input-group textarea:focus {
+    background-color: #ffffff;
+    box-shadow: 0 0 8px rgba(57, 93, 59, 0.15);
+}
+
+/* 크기 조절 비활성화 */
+.input-group textarea {
+    resize: none;
+}
+
+/* 하단 버튼 배치 (왼쪽 라인 정렬) */
+.form-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    align-self: flex-start;
+}
+
+/* 전송하기 버튼 스타일 */
+.submit-btn {
+    padding: 12px 35px;
+    background-color: #395d3b;
+    color: #fafaf8;
+    border: 1px solid #395d3b;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: transparent;
+    color: #395d3b;
+}
+
+/* 돌아가기 버튼 커스텀 조율 (기존 폼 내부 배치에 맞춤) */
+.comment-form .back-btn {
+    margin-top: 0 !important; /* 위쪽 마진 리셋 */
+    margin-bottom: 0 !important;
+    border: 1px solid #395d3b;
+    color: #395d3b;
+    background: transparent;
 }
