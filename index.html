@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>On마음코칭센터</title>
-    <link rel="stylesheet" href="./CSS/style.css">
-    <script src="./JS/jquery-1.12.3.js"></script>
-    <script src="./JS/script.js" defer></script>
+    <link rel="stylesheet" href="/CSS/style.css">
+    <script src="/JS/jquery-1.12.3.js"></script>
+    <script src="/JS/script.js" defer></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.js"></script>
 </head>
 <body>
 
-<!-- 인트로 레이어 -->
 <div id="intro">
     <div class="intro-content">
         <div class="light-switch" id="lightSwitch">
@@ -18,63 +18,141 @@
             <div class="handle"></div>
         </div>
         <div class="intro-logo-wrapper">
-            <!-- 조명 꺼져있을 때 이미지 (예: 회색 또는 어두운 로고) -->
-            <img src="./img/logo.PNG" alt="Logo Off" class="logo-img off">
+            <img src="/img/logo.PNG" alt="Logo Off" class="logo-img off">
         </div>
         <h1 class="intro-logo">On마음코칭센터</h1>
         <p>CONSULTING · SEMINAR · CREATING</p>
     </div>
 </div>
 
-<!-- 상단 네비게이션 -->
 <nav class="navbar" id="navbar">
     <div class="logo">
         <a href="#intro">
-            <!-- 조명이 켜진 후의 컬러 로고 혹은 기본 로고 이미지 -->
-            <img src="./img/logo2.png" alt="Company Logo" class="nav-logo-img">
+            <img src="/img/logo2.PNG" alt="Company Logo" class="nav-logo-img">
         </a>
     </div>
     <ul class="nav-menu">
-        <!-- 드롭다운 메뉴 시작 -->
         <li class="dropdown">
             <a href="#none" class="dropbtn">ABOUT</a>
             <ul class="dropdown-content">
-                <li><a href="#consulting">컨설팅</a></li>
-                <li><a href="#seminar">세미나</a></li>
-                <li><a href="#creating">크리에이팅</a></li>
+                <li><a href="#consulting">회사소개</a></li>
+                <li><a href="#seminar">사업소개</a></li>
+                <li><a href="#creating">문의하기</a></li>
             </ul>
         </li>
-        <!-- 드롭다운 메뉴 끝 -->
     </ul>
 </nav>
 
-<!-- 스크롤 컨테이너 -->
 <div class="scroll-container">
+    
     <section class="panel consulting" id="consulting" data-theme="light">
         <div class="content">
             <span class="num">01</span>
-            <h2>CONSULTING</h2>
-            <p>전략적인 비즈니스 솔루션을 제안합니다.</p>
+            <h2>COMPANY</h2>
+            <p>마음의 흙을 돋우고, 하나의 새싹으로 함께 성장합니다.</p>
+            <button class="open-btn">자세히 보기</button>
+        </div>
+        
+        <div class="sub-page-layout bg-sprout">
+            <div class="sub-page-inner">
+                <h1>COMPANY</h1>
+                <hr>
+        
+                <p>온마음 심리상담코칭센터는 전문적 상담과 코칭을 바탕으로 개인의 심리적 안정과 잠재력 향상을 지원하며, 건강한 관계와 지속 가능한 삶의 변화를 만들어가는 데 기여합니다.</p>
+                <button class="back-btn">돌아가기</button>
+            </div>
         </div>
     </section>
 
     <section class="panel seminar" id="seminar" data-theme="light">
-        <div class="content">
-            <span class="num">02</span>
-            <h2>SEMINAR</h2>
-            <p>지식 공유를 통해 함께 성장합니다.</p>
+    <div class="content">
+        <span class="num">02</span>
+        <h2>BUSINESS</h2>
+        <p>배움의 햇살을 더해, 지속 가능한 변화의 뿌리를 내립니다.</p>
+        <button class="open-btn">자세히 보기</button>
+    </div>
+    
+    <div class="sub-page-layout seminar-deck-wrapper">
+        <div class="seminar-deck-container">
+            
+            <div class="seminar-slide slide-01">
+                <div class="slide-inner">
+                    <h1>MIND-SHIFT 2026</h1>
+                    <p>On마음코칭센터 프리미엄 세미나 시리즈: 변화의 핵심 동력</p>
+                </div>
+            </div>
+
+            <div class="seminar-slide slide-02">
+                <div class="slide-inner">
+                    <h2>01. Core Philosophy</h2>
+                    <hr>
+                    <p>복잡한 비즈니스 환경에서 리더의 의사결정 속도와 정확성을 높이는 마인드셋 훈련입니다.</p>
+                </div>
+            </div>
+
+            <div class="seminar-slide slide-03">
+                <div class="slide-inner">
+                    <h2>02. Strategic Growth</h2>
+                    <hr>
+                    <p>현재 조직의 마인드 데이터를 분석하여 맞춤형 성장 로드맵을 제시합니다.</p>
+                </div>
+            </div>
+
+            <div class="seminar-slide slide-04">
+                <div class="slide-inner">
+                    <h2>03. Interactive Workshop</h2>
+                    <hr>
+                    <p>단순 주입식을 넘어 참가자가 직접 문제를 해결하는 실행 중심의 워크숍 모듈입니다.</p>
+                </div>
+            </div>
+
+            <div class="seminar-slide slide-05">
+                <div class="slide-inner">
+                    <h2>Next Step with Us</h2>
+                    <p>여러분의 조직에 가장 최적화된 마인드 솔루션을 만나보세요.</p>
+                    
+                    <button class="back-btn">돌아가기</button>
+                </div>
+            </div>
+
         </div>
-    </section>
+    </div>
+</section>
 
     <section class="panel creating" id="creating" data-theme="light">
-        <div class="content">
-            <span class="num">03</span>
-            <h2>CREATING</h2>
-            <p>감각적인 결과물을 만들어냅니다.</p>
+    <div class="content">
+        <span class="num">03</span>
+        <h2>CONTACT</h2>
+        <p>고민의 문턱을 낮추고 마음을 나누는 곳, 작은 목소리도 소중히 귀 기울일게요.</p>
+        <button class="open-btn">자세히 보기</button>
+    </div>
+    
+    <div class="sub-page-layout creating-sub-wrapper">
+        <div class="sub-page-inner">
+            <h1>CUSTOMER INQUIRY</h1>
+            <hr>
+            <p class="inquiry-desc">익명으로 자유롭게 의견이나 문의 사항을 남겨주세요. 작성하신 내용은 관리자 이메일로 안전하게 전송됩니다.</p>
+            
+            <form id="inquiryForm" class="comment-form">
+                <div class="input-group">
+                    <label for="nickname">익명 닉네임</label>
+                    <input type="text" id="nickname" name="nickname" placeholder="예: 익명의 새싹" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="message">문의 내용</label>
+                    <textarea id="message" name="message" rows="5" placeholder="여기에 의견이나 문의 내용을 입력해주세요..." required></textarea>
+                </div>
+                
+                <div class="form-buttons">
+                    <button type="submit" class="submit-btn">전송하기</button>
+                    <button type="button" class="back-btn">돌아가기</button>
+                </div>
+            </form>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- 푸터 섹션 -->
     <footer class="panel footer-section" id="contact" data-theme="dark">
         <div class="footer-inner">
             <div class="footer-info">
@@ -85,6 +163,5 @@
         </div>
     </footer>
 </div>
-
 </body>
 </html>
